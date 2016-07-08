@@ -1,6 +1,6 @@
 FROM php:5.6-apache
 
-COPY dk-vhosts.conf /etc/apache2/sites-enabled/001-docker.conf
+COPY dk-vhosts.conf /etc/apache2/sites-enabled/000-default.conf
 
 # Install required extensions
 RUN apt-get update && apt-get install -y \
