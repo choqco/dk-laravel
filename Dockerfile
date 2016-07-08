@@ -12,6 +12,10 @@ RUN apt-get update && apt-get install -y \
 RUN locale-gen en_US.UTF-8
 # RUN echo 'date.timezone = Asia/Bangkok' > /etc/php5/apache2/php.ini
 
+# Install Composer
+RUN wget https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer -O - -q | php -- --quiet
+RUN mv composer.phar /usr/local/bin/composer
+
 # Install PHPUnit
 RUN wget https://phar.phpunit.de/phpunit.phar
 RUN chmod +x phpunit.phar
