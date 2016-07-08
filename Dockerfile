@@ -5,7 +5,7 @@ COPY dk-vhosts.conf /etc/apache2/sites-enabled/001-docker.conf
 # Install required extensions
 RUN apt-get update && apt-get install -y \
 		locales \
-		wget \
+		git wget \
 	--no-install-recommends && rm -r /var/lib/apt/lists/*
 
 # Setup locale & timezone
