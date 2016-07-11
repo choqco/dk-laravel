@@ -6,6 +6,7 @@ COPY dk-vhosts.conf /etc/apache2/sites-enabled/000-default.conf
 RUN apt-get update && apt-get install -y \
 		locales \
 		git wget unzip \
+		ssh \
 	--no-install-recommends && rm -r /var/lib/apt/lists/*
 
 # Setup locale & timezone
