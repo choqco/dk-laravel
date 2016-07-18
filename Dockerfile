@@ -8,6 +8,9 @@ RUN apt-get update && apt-get install -y \
 		git wget unzip \
 	--no-install-recommends && rm -r /var/lib/apt/lists/*
 
+# Install PHP extensions
+RUN a2enmod rewrite
+
 # Setup locale & timezone
 RUN locale-gen en_US.UTF-8
 # RUN echo 'date.timezone = Asia/Bangkok' > /etc/php5/apache2/php.ini
