@@ -6,7 +6,10 @@ COPY dk-vhosts.conf /etc/apache2/sites-enabled/000-default.conf
 RUN apt-get update && apt-get install -y \
 		locales \
 		git wget unzip \
-	--no-install-recommends && rm -r /var/lib/apt/lists/*
+		zlib1g-dev \
+	--no-install-recommends \
+	&& docker-php-ext-install -j$(nproc) zip \
+	&& rm -r /var/lib/apt/lists/*
 
 # Install PHP extensions
 RUN a2enmod rewrite
