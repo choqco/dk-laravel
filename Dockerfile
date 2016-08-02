@@ -8,9 +8,11 @@ RUN echo 'date.timezone = Asia/Bangkok' > /usr/local/etc/php/php.ini
 RUN apt-get update && apt-get install -y \
 		locales \
 		git wget unzip wkhtmltopdf \
+		libmcrypt-dev \
 		zlib1g-dev \
+		gettext \
 	--no-install-recommends \
-	&& docker-php-ext-install -j$(nproc) zip \
+	&& docker-php-ext-install -j$(nproc) zip mcrypt pdo_mysql \
 	&& rm -r /var/lib/apt/lists/*
 
 # Install PHP extensions
