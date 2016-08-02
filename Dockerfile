@@ -16,7 +16,7 @@ RUN a2enmod rewrite
 
 # Setup locale & timezone
 RUN locale-gen en_US.UTF-8
-# RUN echo 'date.timezone = Asia/Bangkok' > /etc/php5/apache2/php.ini
+RUN echo 'date.timezone = Asia/Bangkok' > /etc/php5/apache2/php.ini
 
 # Install Composer
 RUN wget https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer -O - -q | php -- --quiet
