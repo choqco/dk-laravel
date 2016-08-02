@@ -1,4 +1,4 @@
-FROM php:5.6-apache
+FROM php:7-apache
 
 COPY dk-vhosts.conf /etc/apache2/sites-enabled/000-default.conf
 
@@ -16,7 +16,13 @@ RUN a2enmod rewrite
 
 # Setup locale & timezone
 RUN locale-gen en_US.UTF-8
-# RUN echo 'date.timezone = Asia/Bangkok' > /etc/php5/apache2/php.ini
+RUN locale-gen sv_SE.UTF-8
+RUN echo 'date.timezone = Asia/Bangkok' > /etc/php5/apache2/php.ini
+
+# Install wkhtmltopdf
+RUN add-apt-repository ppa:ecometrica/servers \
+        && apt-get update \
+        && DEBIAN_FRONTEND=noninteractive apt-get install -y xvfb wkhtmltopdf
 
 # Install Composer
 RUN wget https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer -O - -q | php -- --quiet
