@@ -11,9 +11,16 @@ RUN apt-get update && apt-get install -y \
 		libmcrypt-dev \
 		zlib1g-dev \
 		gettext \
+		libfreetype6 libfreetype6-dev \
+		libjpeg62 libjpeg62-turbo-dev \
+		libpng12-dev \
 	--no-install-recommends \
-	&& docker-php-ext-install -j$(nproc) zip mcrypt pdo_mysql \
 	&& rm -r /var/lib/apt/lists/*
+
+RUN docker-php-ext-install -j$(nproc) zip mcrypt pdo_mysql
+
+RUN ["/bin/bash", "-c", "docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/"]
+RUN docker-php-ext-install -j$(nproc) gd
 
 # Install PHP extensions
 RUN a2enmod rewrite
