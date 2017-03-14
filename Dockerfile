@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y \
 RUN docker-php-ext-install -j$(nproc) zip mcrypt pdo_mysql
 
 RUN ["/bin/bash", "-c", "docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/"]
-RUN docker-php-ext-install -j$(nproc) gd
+RUN docker-php-ext-install -j$(nproc) gd exif
 
 # Install PHP extensions
 RUN a2enmod rewrite
