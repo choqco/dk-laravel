@@ -1,11 +1,12 @@
-FROM php:7-apache
+# php:7-apache with apt-fast
+FROM aimakun/php-boost
 
 COPY dk-vhosts.conf /etc/apache2/sites-enabled/000-default.conf
 
 RUN echo 'date.timezone = Asia/Bangkok' > /usr/local/etc/php/php.ini
 
 # Install required extensions
-RUN apt-get update && apt-get install -y \
+RUN apt-fast update && apt-fast install -y \
 		locales \
 		git wget unzip wkhtmltopdf \
 		libmcrypt-dev \
@@ -23,7 +24,8 @@ RUN ["/bin/bash", "-c", "docker-php-ext-configure gd --with-freetype-dir=/usr/in
 RUN docker-php-ext-install -j$(nproc) gd exif
 
 # Install PHP extensions
-RUN a2enmod rewrite
+RUN a2enmod rewrite && a2enmod headers
+
 
 # Setup locale & timezone
 RUN locale-gen en_US.UTF-8
