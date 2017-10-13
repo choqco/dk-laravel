@@ -1,14 +1,11 @@
-# php:7-apache with apt-fast
-FROM aimakun/php-boost
+FROM php:7-apache
 
 COPY dk-vhosts.conf /etc/apache2/sites-enabled/000-default.conf
 
-RUN echo 'date.timezone = Asia/Bangkok' > /usr/local/etc/php/php.ini
-
 # Install required extensions
-RUN apt-fast update && apt-fast install -y \
+RUN apt-get update && apt-get install -y \
 		locales \
-		git wget unzip wkhtmltopdf \
+		git wget unzip \
 		libmcrypt-dev \
 		zlib1g-dev \
 		gettext \
@@ -21,15 +18,10 @@ RUN apt-fast update && apt-fast install -y \
 RUN docker-php-ext-install -j$(nproc) zip mcrypt pdo_mysql
 
 RUN ["/bin/bash", "-c", "docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/"]
-RUN docker-php-ext-install -j$(nproc) gd exif
+RUN docker-php-ext-install -j$(nproc) gd
 
 # Install PHP extensions
 RUN a2enmod rewrite && a2enmod headers
-
-
-# Setup locale & timezone
-RUN locale-gen en_US.UTF-8
-RUN locale-gen sv_SE.UTF-8
 
 # Install Composer
 RUN wget https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer -O - -q | php -- --quiet
