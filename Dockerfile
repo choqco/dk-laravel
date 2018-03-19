@@ -11,11 +11,11 @@ RUN apt-get update && apt-get install -y \
 		gettext \
 		libfreetype6 libfreetype6-dev \
 		libjpeg62 libjpeg62-turbo-dev \
-		libpng12-dev \
+		libpng-dev \
 	--no-install-recommends \
 	&& rm -r /var/lib/apt/lists/*
 
-RUN docker-php-ext-install -j$(nproc) zip mcrypt pdo_mysql
+RUN docker-php-ext-install -j$(nproc) zip pdo_mysql
 
 RUN ["/bin/bash", "-c", "docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/"]
 RUN docker-php-ext-install -j$(nproc) gd
