@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
 	--no-install-recommends \
 	&& rm -r /var/lib/apt/lists/*
 
-RUN docker-php-ext-install -j$(nproc) zip pdo_mysql
+RUN docker-php-ext-install -j$(nproc) zip mysqli pdo_mysql
 
 RUN ["/bin/bash", "-c", "docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/"]
 RUN docker-php-ext-install -j$(nproc) gd
