@@ -12,12 +12,8 @@ RUN apt-get update && apt-get install -y \
 		libfreetype6 libfreetype6-dev \
 		libjpeg62 libjpeg62-turbo-dev \
 		libpng-dev \
-		libcap2-bin \
 	--no-install-recommends \
 	&& rm -r /var/lib/apt/lists/*
-
-# Allow expose privilege ports (80) even the container built by non-root user
-RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/apache2-foreground
 
 RUN docker-php-ext-install -j$(nproc) zip mysqli pdo_mysql
 
