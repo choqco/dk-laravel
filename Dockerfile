@@ -1,7 +1,5 @@
 FROM php:7.2-apache
 
-COPY dk-vhosts.conf /etc/apache2/sites-enabled/000-default.conf
-
 # Install required extensions
 RUN apt-get update && apt-get install -y \
 		locales \
@@ -31,6 +29,10 @@ RUN mv composer.phar /usr/local/bin/composer
 RUN wget https://phar.phpunit.de/phpunit.phar
 RUN chmod +x phpunit.phar
 RUN mv phpunit.phar /usr/local/bin/phpunit
+
+# Add customized config
+COPY extended.php.ini /usr/local/etc/php/conf.d/extended.php.ini
+COPY dk-vhosts.conf /etc/apache2/sites-enabled/000-default.conf
 
 # Set default volume for image
 # This would be overrided by docker-compose for updatable source code between development
