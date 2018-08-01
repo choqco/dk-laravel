@@ -1,4 +1,5 @@
-FROM php:7.2-apache
+# FROM php:7.2-apache
+FROM php:7.2.8-fpm-stretch
 
 # Install required extensions
 RUN apt-get update && apt-get install -y \
@@ -18,9 +19,6 @@ RUN docker-php-ext-install -j$(nproc) zip mysqli pdo_mysql
 RUN ["/bin/bash", "-c", "docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/"]
 RUN docker-php-ext-install -j$(nproc) gd
 
-# Install PHP extensions
-RUN a2enmod rewrite && a2enmod headers
-
 # Install Composer
 RUN wget https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer -O - -q | php -- --quiet
 RUN mv composer.phar /usr/local/bin/composer
@@ -32,7 +30,6 @@ RUN mv phpunit.phar /usr/local/bin/phpunit
 
 # Add customized config
 COPY extended.php.ini /usr/local/etc/php/conf.d/extended.php.ini
-COPY dk-vhosts.conf /etc/apache2/sites-enabled/000-default.conf
 
 # Set default volume for image
 # This would be overrided by docker-compose for updatable source code between development
