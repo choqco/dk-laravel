@@ -1,4 +1,3 @@
-# FROM php:7.2-apache
 FROM php:7.2.8-fpm-stretch
 
 # Install required extensions
@@ -38,6 +37,3 @@ WORKDIR /data
 
 # Fixes user permissions for Mac OS [https://github.com/boot2docker/boot2docker/issues/581]
 RUN usermod -u 1000 www-data
-
-# Inherit from based image
-CMD ["apache2-foreground"]
