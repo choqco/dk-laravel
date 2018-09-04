@@ -1,15 +1,19 @@
-FROM php:7.2.8-fpm-stretch
+FROM php:7.2.9-fpm-stretch
 
 # Install required extensions
 RUN apt-get update && apt-get install -y \
-		locales \
-		git wget unzip \
-		libmcrypt-dev \
-		zlib1g-dev \
 		gettext \
-		libfreetype6 libfreetype6-dev \
-		libjpeg62 libjpeg62-turbo-dev \
+        git \
+		locales \
+		libfreetype6 \
+		libfreetype6-dev \
+		libjpeg62 \
+		libjpeg62-turbo-dev \
+		libmcrypt-dev \
 		libpng-dev \
+        unzip \
+        wget \
+		zlib1g-dev \
 	--no-install-recommends \
 	&& rm -r /var/lib/apt/lists/*
 
